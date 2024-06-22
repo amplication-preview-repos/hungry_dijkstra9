@@ -14,6 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Track as PrismaTrack,
+  Singer as PrismaSinger,
   Playlist as PrismaPlaylist,
   User as PrismaUser,
 } from "@prisma/client";
@@ -39,6 +40,17 @@ export class TrackServiceBase {
   }
   async deleteTrack(args: Prisma.TrackDeleteArgs): Promise<PrismaTrack> {
     return this.prisma.track.delete(args);
+  }
+
+  async findSingers(
+    parentId: string,
+    args: Prisma.SingerFindManyArgs
+  ): Promise<PrismaSinger[]> {
+    return this.prisma.track
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .singers(args);
   }
 
   async getPlaylist(parentId: string): Promise<PrismaPlaylist | null> {

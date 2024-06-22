@@ -1,9 +1,10 @@
 import { Module } from "@nestjs/common";
+import { TrackModule } from "./track/track.module";
 import { PlaylistModule } from "./playlist/playlist.module";
 import { SubscriptionModule } from "./subscription/subscription.module";
-import { TrackModule } from "./track/track.module";
 import { AdModule } from "./ad/ad.module";
 import { UserModule } from "./user/user.module";
+import { SingerModule } from "./singer/singer.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -16,11 +17,12 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 @Module({
   controllers: [],
   imports: [
+    TrackModule,
     PlaylistModule,
     SubscriptionModule,
-    TrackModule,
     AdModule,
     UserModule,
+    SingerModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

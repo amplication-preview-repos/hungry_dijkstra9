@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { PlaylistWhereUniqueInput } from "../../playlist/base/PlaylistWhereUniqueInput";
+import { SingerListRelationFilter } from "../../singer/base/SingerListRelationFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -87,6 +88,18 @@ class TrackWhereInput {
     nullable: true,
   })
   playlist?: PlaylistWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SingerListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SingerListRelationFilter)
+  @IsOptional()
+  @Field(() => SingerListRelationFilter, {
+    nullable: true,
+  })
+  singers?: SingerListRelationFilter;
 
   @ApiProperty({
     required: false,

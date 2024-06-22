@@ -17,6 +17,7 @@ import { Type } from "class-transformer";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { SingerUpdateManyWithoutUsersInput } from "./SingerUpdateManyWithoutUsersInput";
 import { SubscriptionUpdateManyWithoutUsersInput } from "./SubscriptionUpdateManyWithoutUsersInput";
 import { TrackUpdateManyWithoutUsersInput } from "./TrackUpdateManyWithoutUsersInput";
 
@@ -87,6 +88,18 @@ class UserUpdateInput {
     nullable: true,
   })
   roles?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => SingerUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => SingerUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => SingerUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  singers?: SingerUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

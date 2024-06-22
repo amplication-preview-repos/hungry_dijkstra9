@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, IsInt, ValidateNested } from "class-validator";
 import { PlaylistWhereUniqueInput } from "../../playlist/base/PlaylistWhereUniqueInput";
 import { Type } from "class-transformer";
+import { SingerUpdateManyWithoutTracksInput } from "./SingerUpdateManyWithoutTracksInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -73,6 +74,18 @@ class TrackUpdateInput {
     nullable: true,
   })
   playlist?: PlaylistWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SingerUpdateManyWithoutTracksInput,
+  })
+  @ValidateNested()
+  @Type(() => SingerUpdateManyWithoutTracksInput)
+  @IsOptional()
+  @Field(() => SingerUpdateManyWithoutTracksInput, {
+    nullable: true,
+  })
+  singers?: SingerUpdateManyWithoutTracksInput;
 
   @ApiProperty({
     required: false,

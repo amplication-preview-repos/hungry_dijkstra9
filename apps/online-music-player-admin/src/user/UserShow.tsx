@@ -12,6 +12,7 @@ import {
 } from "react-admin";
 
 import { USER_TITLE_FIELD } from "./UserTitle";
+import { TRACK_TITLE_FIELD } from "../track/TrackTitle";
 import { PLAYLIST_TITLE_FIELD } from "../playlist/PlaylistTitle";
 
 export const UserShow = (props: ShowProps): React.ReactElement => {
@@ -36,6 +37,24 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             <TextField label="description" source="description" />
             <TextField label="ID" source="id" />
             <TextField label="name" source="name" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="User" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField reference="Singer" target="userId" label="Singers">
+          <Datagrid rowClick="show">
+            <TextField label="bio" source="bio" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="dateOfBirth" source="dateOfBirth" />
+            <TextField label="description" source="description" />
+            <TextField label="ID" source="id" />
+            <TextField label="name" source="name" />
+            <TextField label="photoUrl" source="photoUrl" />
+            <ReferenceField label="Track" source="track.id" reference="Track">
+              <TextField source={TRACK_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
             <ReferenceField label="User" source="user.id" reference="User">
               <TextField source={USER_TITLE_FIELD} />

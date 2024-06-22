@@ -17,6 +17,7 @@ import { Playlist } from "../../playlist/base/Playlist";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { Singer } from "../../singer/base/Singer";
 import { Subscription } from "../../subscription/base/Subscription";
 import { Track } from "../../track/base/Track";
 
@@ -86,6 +87,15 @@ class User {
   @IsJSONValue()
   @Field(() => GraphQLJSON)
   roles!: JsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Singer],
+  })
+  @ValidateNested()
+  @Type(() => Singer)
+  @IsOptional()
+  singers?: Array<Singer>;
 
   @ApiProperty({
     required: false,

@@ -22,6 +22,9 @@ import { Track } from "./Track";
 import { TrackFindManyArgs } from "./TrackFindManyArgs";
 import { TrackWhereUniqueInput } from "./TrackWhereUniqueInput";
 import { TrackUpdateInput } from "./TrackUpdateInput";
+import { SingerFindManyArgs } from "../../singer/base/SingerFindManyArgs";
+import { Singer } from "../../singer/base/Singer";
+import { SingerWhereUniqueInput } from "../../singer/base/SingerWhereUniqueInput";
 
 export class TrackControllerBase {
   constructor(protected readonly service: TrackService) {}
@@ -248,5 +251,97 @@ export class TrackControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/singers")
+  @ApiNestedQuery(SingerFindManyArgs)
+  async findSingers(
+    @common.Req() request: Request,
+    @common.Param() params: TrackWhereUniqueInput
+  ): Promise<Singer[]> {
+    const query = plainToClass(SingerFindManyArgs, request.query);
+    const results = await this.service.findSingers(params.id, {
+      ...query,
+      select: {
+        bio: true,
+        createdAt: true,
+        dateOfBirth: true,
+        description: true,
+        id: true,
+        name: true,
+        photoUrl: true,
+
+        track: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/singers")
+  async connectSingers(
+    @common.Param() params: TrackWhereUniqueInput,
+    @common.Body() body: SingerWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      singers: {
+        connect: body,
+      },
+    };
+    await this.service.updateTrack({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/singers")
+  async updateSingers(
+    @common.Param() params: TrackWhereUniqueInput,
+    @common.Body() body: SingerWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      singers: {
+        set: body,
+      },
+    };
+    await this.service.updateTrack({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/singers")
+  async disconnectSingers(
+    @common.Param() params: TrackWhereUniqueInput,
+    @common.Body() body: SingerWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      singers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTrack({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

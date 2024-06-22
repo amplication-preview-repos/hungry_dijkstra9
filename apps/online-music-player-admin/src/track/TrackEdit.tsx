@@ -8,9 +8,12 @@ import {
   NumberInput,
   ReferenceInput,
   SelectInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
 
 import { PlaylistTitle } from "../playlist/PlaylistTitle";
+import { SingerTitle } from "../singer/SingerTitle";
 import { UserTitle } from "../user/UserTitle";
 
 export const TrackEdit = (props: EditProps): React.ReactElement => {
@@ -28,6 +31,14 @@ export const TrackEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={PlaylistTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="singers"
+          reference="Singer"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SingerTitle} />
+        </ReferenceArrayInput>
         <TextInput label="title" source="title" />
         <TextInput label="url" source="url" />
         <ReferenceInput source="user.id" reference="User" label="User">

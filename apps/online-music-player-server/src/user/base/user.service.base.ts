@@ -15,6 +15,7 @@ import {
   Prisma,
   User as PrismaUser,
   Playlist as PrismaPlaylist,
+  Singer as PrismaSinger,
   Subscription as PrismaSubscription,
   Track as PrismaTrack,
 } from "@prisma/client";
@@ -51,6 +52,17 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .playlists(args);
+  }
+
+  async findSingers(
+    parentId: string,
+    args: Prisma.SingerFindManyArgs
+  ): Promise<PrismaSinger[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .singers(args);
   }
 
   async findSubscriptions(

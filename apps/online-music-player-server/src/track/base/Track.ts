@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Playlist } from "../../playlist/base/Playlist";
+import { Singer } from "../../singer/base/Singer";
 import { User } from "../../user/base/User";
 
 @ObjectType()
@@ -92,6 +93,15 @@ class Track {
   @Type(() => Playlist)
   @IsOptional()
   playlist?: Playlist | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Singer],
+  })
+  @ValidateNested()
+  @Type(() => Singer)
+  @IsOptional()
+  singers?: Array<Singer>;
 
   @ApiProperty({
     required: false,

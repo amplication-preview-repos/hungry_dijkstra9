@@ -22,6 +22,8 @@ import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
 import { PlaylistFindManyArgs } from "../../playlist/base/PlaylistFindManyArgs";
 import { Playlist } from "../../playlist/base/Playlist";
+import { SingerFindManyArgs } from "../../singer/base/SingerFindManyArgs";
+import { Singer } from "../../singer/base/Singer";
 import { SubscriptionFindManyArgs } from "../../subscription/base/SubscriptionFindManyArgs";
 import { Subscription } from "../../subscription/base/Subscription";
 import { TrackFindManyArgs } from "../../track/base/TrackFindManyArgs";
@@ -99,6 +101,20 @@ export class UserResolverBase {
     @graphql.Args() args: PlaylistFindManyArgs
   ): Promise<Playlist[]> {
     const results = await this.service.findPlaylists(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [Singer], { name: "singers" })
+  async findSingers(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: SingerFindManyArgs
+  ): Promise<Singer[]> {
+    const results = await this.service.findSingers(parent.id, args);
 
     if (!results) {
       return [];

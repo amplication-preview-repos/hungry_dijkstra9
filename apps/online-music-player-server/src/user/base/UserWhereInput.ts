@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { PlaylistListRelationFilter } from "../../playlist/base/PlaylistListRelationFilter";
+import { SingerListRelationFilter } from "../../singer/base/SingerListRelationFilter";
 import { SubscriptionListRelationFilter } from "../../subscription/base/SubscriptionListRelationFilter";
 import { TrackListRelationFilter } from "../../track/base/TrackListRelationFilter";
 
@@ -76,6 +77,18 @@ class UserWhereInput {
     nullable: true,
   })
   playlists?: PlaylistListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SingerListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SingerListRelationFilter)
+  @IsOptional()
+  @Field(() => SingerListRelationFilter, {
+    nullable: true,
+  })
+  singers?: SingerListRelationFilter;
 
   @ApiProperty({
     required: false,

@@ -20,6 +20,8 @@ import { TrackFindUniqueArgs } from "./TrackFindUniqueArgs";
 import { CreateTrackArgs } from "./CreateTrackArgs";
 import { UpdateTrackArgs } from "./UpdateTrackArgs";
 import { DeleteTrackArgs } from "./DeleteTrackArgs";
+import { SingerFindManyArgs } from "../../singer/base/SingerFindManyArgs";
+import { Singer } from "../../singer/base/Singer";
 import { Playlist } from "../../playlist/base/Playlist";
 import { User } from "../../user/base/User";
 import { TrackService } from "../track.service";
@@ -121,6 +123,20 @@ export class TrackResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [Singer], { name: "singers" })
+  async findSingers(
+    @graphql.Parent() parent: Track,
+    @graphql.Args() args: SingerFindManyArgs
+  ): Promise<Singer[]> {
+    const results = await this.service.findSingers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @graphql.ResolveField(() => Playlist, {

@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { PlaylistTitle } from "../playlist/PlaylistTitle";
+import { SingerTitle } from "../singer/SingerTitle";
 import { SubscriptionTitle } from "../subscription/SubscriptionTitle";
 import { TrackTitle } from "../track/TrackTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
@@ -37,6 +38,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <ReferenceArrayInput
+          source="singers"
+          reference="Singer"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SingerTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="subscriptions"
           reference="Subscription"

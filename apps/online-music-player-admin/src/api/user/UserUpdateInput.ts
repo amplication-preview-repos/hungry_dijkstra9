@@ -1,5 +1,6 @@
 import { PlaylistUpdateManyWithoutUsersInput } from "./PlaylistUpdateManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
+import { SingerUpdateManyWithoutUsersInput } from "./SingerUpdateManyWithoutUsersInput";
 import { SubscriptionUpdateManyWithoutUsersInput } from "./SubscriptionUpdateManyWithoutUsersInput";
 import { TrackUpdateManyWithoutUsersInput } from "./TrackUpdateManyWithoutUsersInput";
 
@@ -10,6 +11,7 @@ export type UserUpdateInput = {
   password?: string;
   playlists?: PlaylistUpdateManyWithoutUsersInput;
   roles?: InputJsonValue;
+  singers?: SingerUpdateManyWithoutUsersInput;
   subscriptions?: SubscriptionUpdateManyWithoutUsersInput;
   tracks?: TrackUpdateManyWithoutUsersInput;
   username?: string;

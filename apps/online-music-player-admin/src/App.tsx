@@ -5,6 +5,10 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
+import { TrackList } from "./track/TrackList";
+import { TrackCreate } from "./track/TrackCreate";
+import { TrackEdit } from "./track/TrackEdit";
+import { TrackShow } from "./track/TrackShow";
 import { PlaylistList } from "./playlist/PlaylistList";
 import { PlaylistCreate } from "./playlist/PlaylistCreate";
 import { PlaylistEdit } from "./playlist/PlaylistEdit";
@@ -13,10 +17,6 @@ import { SubscriptionList } from "./subscription/SubscriptionList";
 import { SubscriptionCreate } from "./subscription/SubscriptionCreate";
 import { SubscriptionEdit } from "./subscription/SubscriptionEdit";
 import { SubscriptionShow } from "./subscription/SubscriptionShow";
-import { TrackList } from "./track/TrackList";
-import { TrackCreate } from "./track/TrackCreate";
-import { TrackEdit } from "./track/TrackEdit";
-import { TrackShow } from "./track/TrackShow";
 import { AdList } from "./ad/AdList";
 import { AdCreate } from "./ad/AdCreate";
 import { AdEdit } from "./ad/AdEdit";
@@ -25,6 +25,10 @@ import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
+import { SingerList } from "./singer/SingerList";
+import { SingerCreate } from "./singer/SingerCreate";
+import { SingerEdit } from "./singer/SingerEdit";
+import { SingerShow } from "./singer/SingerShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -52,6 +56,13 @@ const App = (): React.ReactElement => {
         loginPage={Login}
       >
         <Resource
+          name="Track"
+          list={TrackList}
+          edit={TrackEdit}
+          create={TrackCreate}
+          show={TrackShow}
+        />
+        <Resource
           name="Playlist"
           list={PlaylistList}
           edit={PlaylistEdit}
@@ -66,13 +77,6 @@ const App = (): React.ReactElement => {
           show={SubscriptionShow}
         />
         <Resource
-          name="Track"
-          list={TrackList}
-          edit={TrackEdit}
-          create={TrackCreate}
-          show={TrackShow}
-        />
-        <Resource
           name="Ad"
           list={AdList}
           edit={AdEdit}
@@ -85,6 +89,13 @@ const App = (): React.ReactElement => {
           edit={UserEdit}
           create={UserCreate}
           show={UserShow}
+        />
+        <Resource
+          name="Singer"
+          list={SingerList}
+          edit={SingerEdit}
+          create={SingerCreate}
+          show={SingerShow}
         />
       </Admin>
     </div>

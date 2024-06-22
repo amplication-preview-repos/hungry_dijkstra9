@@ -1,4 +1,5 @@
 import { Playlist } from "../playlist/Playlist";
+import { Singer } from "../singer/Singer";
 import { User } from "../user/User";
 
 export type Track = {
@@ -9,6 +10,7 @@ export type Track = {
   genre: string | null;
   id: string;
   playlist?: Playlist | null;
+  singers?: Array<Singer>;
   title: string | null;
   updatedAt: Date;
   url: string | null;

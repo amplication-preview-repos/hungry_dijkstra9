@@ -1,4 +1,5 @@
 import { PlaylistWhereUniqueInput } from "../playlist/PlaylistWhereUniqueInput";
+import { SingerUpdateManyWithoutTracksInput } from "./SingerUpdateManyWithoutTracksInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 
 export type TrackUpdateInput = {
@@ -7,6 +8,7 @@ export type TrackUpdateInput = {
   duration?: number | null;
   genre?: string | null;
   playlist?: PlaylistWhereUniqueInput | null;
+  singers?: SingerUpdateManyWithoutTracksInput;
   title?: string | null;
   url?: string | null;
   user?: UserWhereUniqueInput | null;

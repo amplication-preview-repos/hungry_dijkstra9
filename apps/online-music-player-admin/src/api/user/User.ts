@@ -1,5 +1,6 @@
 import { Playlist } from "../playlist/Playlist";
 import { JsonValue } from "type-fest";
+import { Singer } from "../singer/Singer";
 import { Subscription } from "../subscription/Subscription";
 import { Track } from "../track/Track";
 
@@ -11,6 +12,7 @@ export type User = {
   lastName: string | null;
   playlists?: Array<Playlist>;
   roles: JsonValue;
+  singers?: Array<Singer>;
   subscriptions?: Array<Subscription>;
   tracks?: Array<Track>;
   updatedAt: Date;
